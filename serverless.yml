@@ -1,0 +1,33 @@
+service: express-lambda-test
+
+plugins:
+  - serverless-offline
+
+custom:
+  STAGE: ${self:provider.stage}
+  dotenvVars: ${file(./config/config.js)}
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  memorySize: 256
+  timeout: 20
+  stage: ${opt:stage, 'dev'} # option -s or default stage('dev')
+  region: ap-northeast-2
+  environment:
+    STAGE: ${self:provider.stage}
+    APPNAME: ${self:custom.dotenvVars.APP_NAME}
+
+functions:
+  app:
+    handler: ./src/lambda.handler
+    events:
+      - http:
+          path: /
+          method: any
+          cors: true
+      - http:
+          path: '/api/v1/{proxy+}'
+          method: any
+          cors: true
+

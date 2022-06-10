@@ -1,0 +1,25 @@
+{
+  "name": "aws_lambda_express",
+  "version": "0.0.1",
+  "description": "express with lambda project sample",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cross-env NODE_ENV=development nodemon src/app.local.js",
+    "deploy": "serverless deploy"
+  },
+  "author": "Han JuRyeon",
+  "license": "MIT",
+  "dependencies": {
+    "aws-serverless-express": "^3.4.0",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "serverless": "^3.19.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16",
+    "serverless-offline": "^8.8.0"
+  }
+}

@@ -1,0 +1,8 @@
+.idea
+/node_modules/
+.serverless
+package-lock.json
+
+.env.dev
+.env.local
+.env.prod
