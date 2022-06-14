@@ -3,6 +3,4 @@
 .serverless
 package-lock.json
 
-.env.dev
-.env.local
-.env.prod
+.env.yml
