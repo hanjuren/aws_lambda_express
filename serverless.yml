@@ -4,8 +4,8 @@ plugins:
   - serverless-offline
 
 custom:
-  STAGE: ${self:provider.stage}
-  dotenvVars: ${file(./config/config.js)}
+  stage: ${opt:stage, self:provider.stage}
+  environment: ${file(env.yml):${self:custom.stage}, file(env.yml):default}
 
 provider:
   name: aws
@@ -15,8 +15,8 @@ provider:
   stage: ${opt:stage, 'dev'} # option -s or default stage('dev')
   region: ap-northeast-2
   environment:
-    STAGE: ${self:provider.stage}
-    APPNAME: ${self:custom.dotenvVars.APP_NAME}
+    NODE_ENV: ${self:custom.environment.NODE_ENV}
+
 
 functions:
   app:
