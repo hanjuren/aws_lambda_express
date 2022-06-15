@@ -1,27 +1,22 @@
 const express = require('express');
+const router = require('./routes');
 const { initialize } = require('./init');
-const { User, Card } = require('./database/models');
 
 const app = express();
 
+/**
+ * Database, Cors Initialize
+ */
 initialize(app);
 
-app.get('/api/v1/meta', async (req, res) => {
-  try {
-    const cards = await Card
-      .findAll({
-        include: {
-          model: User,
-        }
-      });
+/**
+ * Express Default Setting
+ */
+app.use(express.json());
 
-    return res.json({
-      "total": cards.length,
-      "records": cards,
-    });
-  } catch (err) {
-    console.log(err);
-  }
-});
+/**
+ * Router
+ */
+app.use('/api/v1', router);
 
 module.exports = app;
