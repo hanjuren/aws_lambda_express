@@ -1,28 +1,27 @@
 const express = require('express');
-const allowd_origins = require('../config/allowed_origin');
-const cors = require('cors');
+const { initialize } = require('./init');
+const { User, Card } = require('./database/models');
 
 const app = express();
 
-const corsOPtions = {
-  origin: allowd_origins(),
-  method: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD'],
-  credentials: true,
-}
-app.use(cors(corsOPtions));
+initialize(app);
 
 app.get('/api/v1/meta', async (req, res) => {
+  try {
+    const cards = await Card
+      .findAll({
+        include: {
+          model: User,
+        }
+      });
 
-  if (process.env.NODE_ENV === 'production') {
-    console.log("람다로 돌아가는 노드 환경은 현재 prod 환경입니다.");
+    return res.json({
+      "total": cards.length,
+      "records": cards,
+    });
+  } catch (err) {
+    console.log(err);
   }
-  if (process.env.NODE_ENV === 'development') {
-    console.log("람다로 돌아가는 노드 환경은 현재 dev 환경입니다.");
-  }
-
-  return res.json({
-    "message": 'hello world',
-  });
 });
 
 module.exports = app;

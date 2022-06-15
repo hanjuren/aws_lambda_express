@@ -23,4 +23,4 @@ const allowed_origin = () => {
   return ALLOWED_ORIGINS;
 }
 
-module.exports = allowed_origin;
+module.exports = { allowed_origin };
