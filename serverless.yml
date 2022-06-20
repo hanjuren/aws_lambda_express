@@ -1,4 +1,4 @@
-service: express-lambda-test
+service: lambdaTest
 
 plugins:
   - serverless-offline
@@ -10,7 +10,7 @@ custom:
 provider:
   name: aws
   runtime: nodejs16.x
-  memorySize: 256
+  memorySize: 512
   timeout: 20
   stage: ${opt:stage, 'dev'} # option -s or default stage('dev')
   region: ap-northeast-2
@@ -27,7 +27,7 @@ functions:
           method: any
           cors: true
       - http:
-          path: '/api/v1/{proxy+}'
+          path: '/api/v1/lambda/{proxy+}'
           method: any
           cors: true
 
